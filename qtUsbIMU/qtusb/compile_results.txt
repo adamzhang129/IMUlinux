@@ -1,0 +1,176 @@
+g++ -c -m64 -pipe -std=c++11 -O2 -Wall -W -D_REENTRANT -DQT_NO_DEBUG -DQT_TESTLIB_LIB -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++-64 -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtXml -I/usr/include/qt4/QtSvg -I/usr/include/qt4/QtTest -I/usr/include/qt4 -I. -I. -o main.o main.cpp
+In file included from display_thread.h:3:0,
+                 from cdatacapture.h:9,
+                 from mainwindow.h:6,
+                 from main.cpp:3:
+imgframe.h: In constructor ‘imgFrame::imgFrame(int, int, int)’:
+imgframe.h:56:9: warning: ‘imgFrame::m_height’ will be initialized after [-Wreorder]
+     int m_height;
+         ^
+imgframe.h:51:9: warning:   ‘int imgFrame::m_camNum’ [-Wreorder]
+     int m_camNum;
+         ^
+imgframe.h:69:5: warning:   when initialized here [-Wreorder]
+     imgFrame(int width,int height,int camNum):m_width(width),m_height(height),m_camNum(camNum)
+     ^
+In file included from display_thread.h:4:0,
+                 from cdatacapture.h:9,
+                 from mainwindow.h:6,
+                 from main.cpp:3:
+wqueue.h: In member function ‘int wqueue<T>::reset()’:
+wqueue.h:73:5: warning: no return statement in function returning non-void [-Wreturn-type]
+     }
+     ^
+g++ -c -m64 -pipe -std=c++11 -O2 -Wall -W -D_REENTRANT -DQT_NO_DEBUG -DQT_TESTLIB_LIB -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++-64 -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtXml -I/usr/include/qt4/QtSvg -I/usr/include/qt4/QtTest -I/usr/include/qt4 -I. -I. -o mainwindow.o mainwindow.cpp
+In file included from display_thread.h:3:0,
+                 from cdatacapture.h:9,
+                 from mainwindow.h:6,
+                 from mainwindow.cpp:1:
+imgframe.h: In constructor ‘imgFrame::imgFrame(int, int, int)’:
+imgframe.h:56:9: warning: ‘imgFrame::m_height’ will be initialized after [-Wreorder]
+     int m_height;
+         ^
+imgframe.h:51:9: warning:   ‘int imgFrame::m_camNum’ [-Wreorder]
+     int m_camNum;
+         ^
+imgframe.h:69:5: warning:   when initialized here [-Wreorder]
+     imgFrame(int width,int height,int camNum):m_width(width),m_height(height),m_camNum(camNum)
+     ^
+In file included from display_thread.h:4:0,
+                 from cdatacapture.h:9,
+                 from mainwindow.h:6,
+                 from mainwindow.cpp:1:
+wqueue.h: In member function ‘int wqueue<T>::reset()’:
+wqueue.h:73:5: warning: no return statement in function returning non-void [-Wreturn-type]
+     }
+     ^
+mainwindow.cpp: At global scope:
+mainwindow.cpp:80:6: warning: unused parameter ‘event’ [-Wunused-parameter]
+ void MainWindow::closeEvent(QCloseEvent *event)
+      ^
+g++ -c -m64 -pipe -std=c++11 -O2 -Wall -W -D_REENTRANT -DQT_NO_DEBUG -DQT_TESTLIB_LIB -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++-64 -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtXml -I/usr/include/qt4/QtSvg -I/usr/include/qt4/QtTest -I/usr/include/qt4 -I. -I. -o cdatacapture.o cdatacapture.cpp
+In file included from display_thread.h:3:0,
+                 from cdatacapture.h:9,
+                 from cdatacapture.cpp:1:
+imgframe.h: In constructor ‘imgFrame::imgFrame(int, int, int)’:
+imgframe.h:56:9: warning: ‘imgFrame::m_height’ will be initialized after [-Wreorder]
+     int m_height;
+         ^
+imgframe.h:51:9: warning:   ‘int imgFrame::m_camNum’ [-Wreorder]
+     int m_camNum;
+         ^
+imgframe.h:69:5: warning:   when initialized here [-Wreorder]
+     imgFrame(int width,int height,int camNum):m_width(width),m_height(height),m_camNum(camNum)
+     ^
+In file included from display_thread.h:4:0,
+                 from cdatacapture.h:9,
+                 from cdatacapture.cpp:1:
+wqueue.h: In member function ‘int wqueue<T>::reset()’:
+wqueue.h:73:5: warning: no return statement in function returning non-void [-Wreturn-type]
+     }
+     ^
+cdatacapture.cpp: In member function ‘virtual void CDataCapture::run()’:
+cdatacapture.cpp:54:19: warning: variable ‘data’ set but not used [-Wunused-but-set-variable]
+     unsigned char data[4];
+                   ^
+cdatacapture.cpp: At global scope:
+cdatacapture.cpp:84:5: warning: unused parameter ‘ch’ [-Wunused-parameter]
+ int CDataCapture::Open(display_thread *dispx,cyusb_handle *ch)
+     ^
+cdatacapture.cpp: In member function ‘int CDataCapture::Input(byte*, unsigned int)’:
+cdatacapture.cpp:144:57: warning: suggest parentheses around ‘+’ inside ‘<<’ [-Wparentheses]
+                 (*dFrame).timestamp=m_pInData[i+10]<<8*3+m_pInData[i+11]<<8*2+m_pInData[i+12]<<8+m_pInData[i+13];
+                                                         ^
+cdatacapture.cpp:144:78: warning: suggest parentheses around ‘+’ inside ‘<<’ [-Wparentheses]
+                 (*dFrame).timestamp=m_pInData[i+10]<<8*3+m_pInData[i+11]<<8*2+m_pInData[i+12]<<8+m_pInData[i+13];
+                                                                              ^
+cdatacapture.cpp:144:97: warning: suggest parentheses around ‘+’ inside ‘<<’ [-Wparentheses]
+                 (*dFrame).timestamp=m_pInData[i+10]<<8*3+m_pInData[i+11]<<8*2+m_pInData[i+12]<<8+m_pInData[i+13];
+                                                                                                 ^
+g++ -c -m64 -pipe -std=c++11 -O2 -Wall -W -D_REENTRANT -DQT_NO_DEBUG -DQT_TESTLIB_LIB -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++-64 -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtXml -I/usr/include/qt4/QtSvg -I/usr/include/qt4/QtTest -I/usr/include/qt4 -I. -I. -o display_thread.o display_thread.cpp
+In file included from ./display_thread.h:3:0,
+                 from display_thread.cpp:1:
+./imgframe.h: In constructor ‘imgFrame::imgFrame(int, int, int)’:
+./imgframe.h:56:9: warning: ‘imgFrame::m_height’ will be initialized after [-Wreorder]
+     int m_height;
+         ^
+./imgframe.h:51:9: warning:   ‘int imgFrame::m_camNum’ [-Wreorder]
+     int m_camNum;
+         ^
+./imgframe.h:69:5: warning:   when initialized here [-Wreorder]
+     imgFrame(int width,int height,int camNum):m_width(width),m_height(height),m_camNum(camNum)
+     ^
+In file included from ./display_thread.h:4:0,
+                 from display_thread.cpp:1:
+./wqueue.h: In member function ‘int wqueue<T>::reset()’:
+./wqueue.h:73:5: warning: no return statement in function returning non-void [-Wreturn-type]
+     }
+     ^
+display_thread.cpp: In member function ‘virtual void display_thread::run()’:
+display_thread.cpp:34:18: warning: unused variable ‘cnt’ [-Wunused-variable]
+     volatile int cnt=0;
+                  ^
+display_thread.cpp: In member function ‘int display_thread::ProcessIMUData(DFrameStruct*)’:
+display_thread.cpp:80:27: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+     for(int j=0;j<dFrame->IMUSamplesCnt;j++)
+                           ^
+display_thread.cpp:94:12: warning: deleting ‘void*’ is undefined [enabled by default]
+     delete tempNum;
+            ^
+display_thread.cpp: In member function ‘int display_thread::fillAxisIMU(short int*, byte*)’:
+display_thread.cpp:106:12: warning: deleting ‘void*’ is undefined [enabled by default]
+     delete tempNUM;
+            ^
+display_thread.cpp: At global scope:
+display_thread.cpp:110:5: warning: unused parameter ‘outsel’ [-Wunused-parameter]
+ int display_thread::bytesToIMU(byte* bufbyte,int len,void* output,int outsel)//unsigned int* uiout,float *fout,int outsel=0)
+     ^
+display_thread.cpp: In member function ‘int display_thread::setdispimg(int)’:
+display_thread.cpp:146:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+/usr/lib/x86_64-linux-gnu/qt4/bin/moc -DQT_NO_DEBUG -DQT_TESTLIB_LIB -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++-64 -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtXml -I/usr/include/qt4/QtSvg -I/usr/include/qt4/QtTest -I/usr/include/qt4 -I. -I. mainwindow.h -o moc_mainwindow.cpp
+g++ -c -m64 -pipe -std=c++11 -O2 -Wall -W -D_REENTRANT -DQT_NO_DEBUG -DQT_TESTLIB_LIB -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++-64 -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtXml -I/usr/include/qt4/QtSvg -I/usr/include/qt4/QtTest -I/usr/include/qt4 -I. -I. -o moc_mainwindow.o moc_mainwindow.cpp
+In file included from display_thread.h:3:0,
+                 from cdatacapture.h:9,
+                 from mainwindow.h:6,
+                 from moc_mainwindow.cpp:9:
+imgframe.h: In constructor ‘imgFrame::imgFrame(int, int, int)’:
+imgframe.h:56:9: warning: ‘imgFrame::m_height’ will be initialized after [-Wreorder]
+     int m_height;
+         ^
+imgframe.h:51:9: warning:   ‘int imgFrame::m_camNum’ [-Wreorder]
+     int m_camNum;
+         ^
+imgframe.h:69:5: warning:   when initialized here [-Wreorder]
+     imgFrame(int width,int height,int camNum):m_width(width),m_height(height),m_camNum(camNum)
+     ^
+In file included from display_thread.h:4:0,
+                 from cdatacapture.h:9,
+                 from mainwindow.h:6,
+                 from moc_mainwindow.cpp:9:
+wqueue.h: In member function ‘int wqueue<T>::reset()’:
+wqueue.h:73:5: warning: no return statement in function returning non-void [-Wreturn-type]
+     }
+     ^
+/usr/lib/x86_64-linux-gnu/qt4/bin/moc -DQT_NO_DEBUG -DQT_TESTLIB_LIB -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++-64 -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtXml -I/usr/include/qt4/QtSvg -I/usr/include/qt4/QtTest -I/usr/include/qt4 -I. -I. display_thread.h -o moc_display_thread.cpp
+g++ -c -m64 -pipe -std=c++11 -O2 -Wall -W -D_REENTRANT -DQT_NO_DEBUG -DQT_TESTLIB_LIB -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++-64 -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtXml -I/usr/include/qt4/QtSvg -I/usr/include/qt4/QtTest -I/usr/include/qt4 -I. -I. -o moc_display_thread.o moc_display_thread.cpp
+In file included from display_thread.h:3:0,
+                 from moc_display_thread.cpp:9:
+imgframe.h: In constructor ‘imgFrame::imgFrame(int, int, int)’:
+imgframe.h:56:9: warning: ‘imgFrame::m_height’ will be initialized after [-Wreorder]
+     int m_height;
+         ^
+imgframe.h:51:9: warning:   ‘int imgFrame::m_camNum’ [-Wreorder]
+     int m_camNum;
+         ^
+imgframe.h:69:5: warning:   when initialized here [-Wreorder]
+     imgFrame(int width,int height,int camNum):m_width(width),m_height(height),m_camNum(camNum)
+     ^
+In file included from display_thread.h:4:0,
+                 from moc_display_thread.cpp:9:
+wqueue.h: In member function ‘int wqueue<T>::reset()’:
+wqueue.h:73:5: warning: no return statement in function returning non-void [-Wreturn-type]
+     }
+     ^
+g++ -m64 -Wl,-O1 -o test3 main.o mainwindow.o cdatacapture.o thread.o display_thread.o moc_mainwindow.o moc_display_thread.o    -L/usr/lib/x86_64-linux-gnu -L /home/alan/cyusb_linux_1.0.4/lib -lcyusb -lusb-1.0 -L/usr/local/lib -lQtTest -lQtSvg -lQtXml -lQtGui -lQtCore -lpthread 

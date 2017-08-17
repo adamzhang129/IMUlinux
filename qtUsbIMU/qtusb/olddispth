@@ -1,0 +1,104 @@
+#ifndef DISPLAY_THREAD_H
+#define DISPLAY_THREAD_H
+
+#endif // DISPLAY_THREAD_H
+class display_thread:public QThread//public QObject,public QThread
+{
+    Q_OBJECT
+    wqueue<imgFrame*>*m_queue;
+    //wqueue<imgFrame*> m_queue;
+
+private:
+    QImage img;
+    bool stop;
+    QGraphicsScene *scene;
+    QGraphicsView *thisgv;
+signals:
+    void processedImage(const QImage &image);
+    //void processedImage(imgFrame * this_imgframe);
+public:
+    display_thread()//wqueue<imgFrame*>&queue):m_queue(queue)
+    {
+        stop=false;
+    }
+   void set_dispqueue(wqueue<imgFrame*>*queue)
+   {
+      m_queue=queue;
+   }
+//    display_thread(wqueue<imgFrame*>&queue,QObject *parent = 0);
+    void initgraph(QGraphicsView * gv,QGraphicsScene* gs)
+    {
+        thisgv=gv;
+        scene=gs;
+        thisgv->setScene(scene);
+    }
+    void stopthread()
+    {
+        stop=true;
+    }
+
+
+    void run()//*run()
+    {
+        imgFrame* this_imageframe;
+        cv::Mat frame0;
+        cv::Mat frame1;
+        cv::Mat frame2;
+        imgFrame* this_imageframe0;
+        imgFrame* this_imageframe1;
+        imgFrame* this_imageframe2;
+        volatile int cnt=0;
+
+        while(!stop)
+        {
+            this_imageframe=m_queue->remove();
+            img = QImage((const unsigned char*)(this_imageframe->imgBuf),
+                   this_imageframe->m_width,this_imageframe->m_height,QImage::Format_Indexed8);
+            emit processedImage(img);
+            //emit processedImage(this_imageframe);
+//updateimage(this_imageframe);
+           // cv::Mat frame(this_imageframe->m_height,this_imageframe->m_width,
+             //             CV_8UC1,this_imageframe->imgBuf);
+//            switch(cnt)
+//            {
+//            case 0:
+//                this_imageframe0=m_queue.remove();
+//                frame0=cv::Mat(this_imageframe0->m_height,this_imageframe0->m_width,
+//                              CV_8UC1,this_imageframe0->imgBuf);
+
+//                cv::imshow("disp",frame0);
+//                frame2.release();
+//                delete this_imageframe2;
+//                cnt=1;
+//                break;
+
+//            case 1:
+
+//                this_imageframe1=m_queue.remove();
+//                frame1=cv::Mat(this_imageframe1->m_height,this_imageframe1->m_width,
+//                              CV_8UC1,this_imageframe1->imgBuf);
+//                cv::imshow("disp1",frame1);
+//                frame0.release();
+//                delete this_imageframe0;
+//                cnt=2;
+//                break;
+
+//            case 2:
+//                this_imageframe2=m_queue.remove();
+//                frame2=cv::Mat(this_imageframe2->m_height,this_imageframe2->m_width,
+//                              CV_8UC1,this_imageframe2->imgBuf);
+//                cv::imshow("disp2",frame2);
+//                frame1.release();
+//                delete this_imageframe1;
+//                cnt=0;
+//                break;
+
+//            default:
+//                break;
+//            }
+                usleep(1);//cv::waitKey(1);
+                //delete this_imageframe;
+        }
+    }
+};
+

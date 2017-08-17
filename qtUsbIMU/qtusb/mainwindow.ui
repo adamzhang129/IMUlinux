@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>725</width>
+    <height>690</height>
+   </rect>
+  </property>
+  <property name="acceptDrops">
+   <bool>false</bool>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>3</x>
+      <y>2</y>
+      <width>437</width>
+      <height>202</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="3" colspan="3">
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>stop</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>ExpoValue</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2">
+      <widget class="QPushButton" name="pushButton_softTrig">
+       <property name="text">
+        <string>SoftTrig</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="3">
+      <widget class="QPushButton" name="pushButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>cap</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="5">
+      <widget class="QSpinBox" name="spinBox_GainValue">
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="minimum">
+        <number>16</number>
+       </property>
+       <property name="maximum">
+        <number>63</number>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QComboBox" name="cbAutoTrig">
+       <item>
+        <property name="text">
+         <string>AutoTrig</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>SoftTrigOnce</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>FPGATrig</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>FromOutSide</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="2" column="4">
+      <widget class="QSlider" name="horizontalSlider_FpgaFreq">
+       <property name="maximum">
+        <number>60</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="3" colspan="2">
+      <widget class="QSlider" name="horizontalSlider_GainValue">
+       <property name="minimum">
+        <number>16</number>
+       </property>
+       <property name="maximum">
+        <number>63</number>
+       </property>
+       <property name="pageStep">
+        <number>10</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0" colspan="2">
+      <widget class="QCheckBox" name="checkBox_AutoGain">
+       <property name="text">
+        <string>Auto Gain</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>GainValue</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" colspan="2">
+      <widget class="QLineEdit" name="lineEdit_Width"/>
+     </item>
+     <item row="1" column="4" colspan="2">
+      <widget class="QLineEdit" name="lineEdit_Height"/>
+     </item>
+     <item row="2" column="0" colspan="2">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>TrigMode</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="5">
+      <widget class="QSpinBox" name="spinBox_FpgaFreq"/>
+     </item>
+     <item row="2" column="3">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>HwTrigfps</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" colspan="2">
+      <widget class="QCheckBox" name="checkBox_AutoExpo">
+       <property name="text">
+        <string>Auto Expo</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Width</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Height</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="3" colspan="2">
+      <widget class="QSlider" name="horizontalSlider_ExpoValue">
+       <property name="maximum">
+        <number>32768</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="5">
+      <widget class="QSpinBox" name="spinBox_ExpoValue">
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="maximum">
+        <number>32768</number>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="4">
+      <widget class="QComboBox" name="imgchannel">
+       <item>
+        <property name="text">
+         <string>left</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>right</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="5" column="3">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>showimg</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="imgdisplayer">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>210</y>
+      <width>681</width>
+      <height>431</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #000</string>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="IMUtext">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>10</y>
+      <width>241</width>
+      <height>171</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>725</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>spinBox_ExpoValue</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSlider_ExpoValue</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>383</x>
+     <y>159</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>282</x>
+     <y>159</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_GainValue</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSlider_GainValue</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>383</x>
+     <y>189</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>282</x>
+     <y>189</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_FpgaFreq</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSlider_FpgaFreq</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>383</x>
+     <y>129</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>315</x>
+     <y>129</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_FpgaFreq</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>spinBox_FpgaFreq</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>315</x>
+     <y>129</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>383</x>
+     <y>129</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_ExpoValue</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>spinBox_ExpoValue</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>282</x>
+     <y>159</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>383</x>
+     <y>159</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_GainValue</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>spinBox_GainValue</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>282</x>
+     <y>189</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>383</x>
+     <y>189</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>slot1()</slot>
+ </slots>
+</ui>
