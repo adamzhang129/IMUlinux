@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
 
     
     QImage img;
+    QImage imgRight;
     
     while (nh.ok()) {
         
@@ -53,6 +54,7 @@ int main(int argc, char *argv[])
                     const_cast<uchar*>(img.bits()),
                     static_cast<size_t>(img.bytesPerLine())
                     );
+        
         
         msg = cv_bridge::CvImage(std_msgs::Header(), "mono8", mat).toImageMsg();
 
