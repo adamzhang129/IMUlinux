@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
     
     QImage img;
     QImage imgRight;
+    QImage imLeft;
     
     while (nh.ok()) {
         
