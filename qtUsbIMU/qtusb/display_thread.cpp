@@ -30,9 +30,13 @@ void display_thread::run()
     DFrameStruct* dframethis;
     IMUDataStruct *imudata=new IMUDataStruct();
     unique_ptr<byte>uimgbuf;
-    byte* imgbuf;
+    // byte* imgbuf;
+    byte* imgbufLeft;
+    byte* imgbufRight;
     volatile int cnt=0;
-    QImage imgcpy;
+    // QImage imgcpy;
+    QImage imgcpyLeft;
+    QImage imgcpyRight;
 
     while(!stop)
     {
@@ -44,18 +48,38 @@ void display_thread::run()
         ProcessIMUData(dframethis);
         memcpy(imudata,dframethis->IMUData.get(),sizeof(IMUDataStruct));
         // cout << channel <<endl;
-        if(channel==0)
-        {
-            imgbuf=dframethis->leftData.get();
-        }
-        else
-        {
-            imgbuf=dframethis->rightData.get();
-        }
-        img = QImage((const unsigned char*)imgbuf,
+        // if(channel==0)
+        // {
+        //     imgbuf=dframethis->leftData.get();
+        // }
+        // else
+        // {
+        //     imgbuf=dframethis->rightData.get();
+        // }
+        imgbufLeft = dframethis->leftData.get();
+        imgbufRight = dframethis->rightData.get();
+
+        imgLeft = QImage((const unsigned char*)imgbufLeft,
                      dframethis->width,dframethis->height,QImage::Format_Indexed8);
-        imgcpy=img.copy();
-        emit processedImage(imgcpy);
+        imgRight = QImage((const unsigned char*)imgbufRight,
+                     dframethis->width,dframethis->height,QImage::Format_Indexed8);
+        
+        // QImage tempImage(960, 640, QImage::Format_Mono);
+        // QPainter p(&tempImage);
+        // p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+        // p.drawImage(0, 0, imgLeft);
+        // p.end();
+        // p.begin(&imgRight);
+        // p.drawImage(480, 0, imgRight);
+        // p.end();
+        
+
+        imgcpyLeft=imgLeft.copy();
+        imgcpyRight = imgRight.copy();
+
+        // emit processedImage(imgcpy);
+        emit processedImageLeft(imgcpyLeft);
+        emit processedImageRight(imgcpyRight);
 
         if(b_t1s)
         {

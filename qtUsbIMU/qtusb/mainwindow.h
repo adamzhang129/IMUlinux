@@ -21,7 +21,8 @@ public:
     ~MainWindow();
 
     
-    QImage output2ROSImg;
+    QImage img2ROSLeft;
+    QImage img2ROSRight;
 void closeEvent(QCloseEvent *event);
 protected:
     void changeEvent(QEvent *e);
@@ -50,6 +51,8 @@ private slots:
     void upadateIMUText(IMUDataStruct*is,uint et);
 
     void on_imgchannel_currentIndexChanged(int index);
+
+    void updateRightImage(QImage img);
 
 
     

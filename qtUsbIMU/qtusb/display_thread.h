@@ -6,6 +6,8 @@
 #include <QImage>
 #include<QTimer>
 #include <memory>
+
+#include <QPainter>
 using namespace std;
 class display_thread:public QThread//public QObject,public QThread
 {
@@ -14,6 +16,8 @@ class display_thread:public QThread//public QObject,public QThread
 
 private:
     QImage img;
+    QImage imgLeft;
+    QImage imgRight;
     bool stop;
     pthread_mutex_t  m_mutex;
     wqueue<unique_ptr<DFrameStruct> >*m_queue;
@@ -25,7 +29,9 @@ private:
     //wqueue<imgFrame*> m_queue;
     int channel;
 signals:
-    void processedImage(const QImage image);
+    // void processedImage(const QImage image);
+    void processedImageLeft(const QImage image);
+    void processedImageRight(const QImage image);
     void sig_t1s(IMUDataStruct *is,unsigned int et);
 private slots:
     void t1sirq();

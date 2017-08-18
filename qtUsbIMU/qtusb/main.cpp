@@ -28,12 +28,14 @@ int main(int argc, char *argv[])
     ros::init(argc, argv, "image_publisher");
     ros::NodeHandle nh;
     image_transport::ImageTransport it(nh);
-    image_transport::Publisher pub = it.advertise("camera/image", 1);
+    image_transport::Publisher pubLeft = it.advertise("camera/image/left", 1);
+    image_transport::Publisher pubRight = it.advertise("camera/image/right", 1);
     
     // cv::Mat image = cv::imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);
     // cv::Mat image;
     // cv::cvtColor(image1,image,CV_RGB2GRAY);
-    sensor_msgs::ImagePtr msg;
+    sensor_msgs::ImagePtr msgLeft;
+    sensor_msgs::ImagePtr msgRight;
   
     ros::Rate loop_rate(15);
 
@@ -42,25 +44,34 @@ int main(int argc, char *argv[])
     w.show();
 
     
-    QImage img;
+    // QImage img;
     QImage imgRight;
-    QImage imLeft;
+    QImage imgLeft;
     
     while (nh.ok()) {
         
-        img = w.output2ROSImg;
+        imgLeft = w.img2ROSLeft;
+        imgRight = w.img2ROSRight;
 
-        cv::Mat  mat( img.height(), img.width(),
+        cv::Mat  matLeft( imgLeft.height(), imgLeft.width(),
                     CV_8UC1,
-                    const_cast<uchar*>(img.bits()),
-                    static_cast<size_t>(img.bytesPerLine())
+                    const_cast<uchar*>(imgLeft.bits()),
+                    static_cast<size_t>(imgLeft.bytesPerLine())
+                    );
+        cv::Mat  matRight( imgRight.height(), imgRight.width(),
+                    CV_8UC1,
+                    const_cast<uchar*>(imgRight.bits()),
+                    static_cast<size_t>(imgRight.bytesPerLine())
                     );
         
         
-        msg = cv_bridge::CvImage(std_msgs::Header(), "mono8", mat).toImageMsg();
-
-        pub.publish(msg);
+        msgLeft = cv_bridge::CvImage(std_msgs::Header(), "mono8", matLeft).toImageMsg();
+        msgRight = cv_bridge::CvImage(std_msgs::Header(), "mono8", matRight).toImageMsg();
         
+        pubLeft.publish(msgLeft);
+        pubRight.publish(msgRight);
+
+
         qApp->processEvents();
         ros::spinOnce();
         loop_rate.sleep();

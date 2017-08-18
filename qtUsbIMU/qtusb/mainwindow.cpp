@@ -52,10 +52,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->checkBox_AutoGain,SIGNAL(released()),this,SLOT(setAutoGainExpo()));
 
 
-    connect(this_displaythx, SIGNAL(processedImage(QImage)),
-                              this, SLOT(updatePlayerUI(QImage)));
-    connect(this_displaythx,SIGNAL(sig_t1s(IMUDataStruct*,uint)),
-            this,SLOT(upadateIMUText(IMUDataStruct*,uint)));
+    connect(this_displaythx, SIGNAL(processedImageLeft(QImage)), this, SLOT(updatePlayerUI(QImage)));
+    connect(this_displaythx, SIGNAL(processedImageRight(QImage)), this, SLOT(updateRightImage(QImage)));
+    connect(this_displaythx,SIGNAL(sig_t1s(IMUDataStruct*,uint)), this,SLOT(upadateIMUText(IMUDataStruct*,uint)));
 }
 
 void MainWindow::upadateIMUText(IMUDataStruct*is,uint et)
@@ -82,8 +81,18 @@ void MainWindow::updatePlayerUI(QImage img)
         ui->imgdisplayer->setPixmap(QPixmap::fromImage(img).scaled(ui->imgdisplayer->size(),
                                            Qt::KeepAspectRatio, Qt::FastTransformation));
 
-        output2ROSImg = img.copy();
-                                    
+        img2ROSLeft = img.copy();
+        
+    }
+}
+
+void MainWindow::updateRightImage(QImage img){
+
+    if (!img.isNull())
+    {
+
+        img2ROSRight = img.copy();
+        
     }
 }
 
