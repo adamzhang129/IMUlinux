@@ -70,6 +70,7 @@ void MainWindow::upadateIMUText(IMUDataStruct*is,uint et)
                 QString::number(expotime*27.185)
             );
     ui->IMUtext->document()->setPlainText(text);
+    m_IMU2ROS = is;
 }
 
 void MainWindow::updatePlayerUI(QImage img)

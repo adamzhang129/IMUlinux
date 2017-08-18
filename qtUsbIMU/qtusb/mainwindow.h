@@ -23,6 +23,7 @@ public:
     
     QImage img2ROSLeft;
     QImage img2ROSRight;
+    IMUDataStruct*m_IMU2ROS;
 void closeEvent(QCloseEvent *event);
 protected:
     void changeEvent(QEvent *e);
