@@ -1,5 +1,8 @@
 {
     "files.associations": {
         "*.tcc": "cpp"
-    }
+    },
+    "python.autoComplete.extraPaths": [
+        "/opt/ros/indigo/lib/python2.7/dist-packages"
+    ]
 }

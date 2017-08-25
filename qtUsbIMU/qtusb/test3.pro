@@ -22,8 +22,12 @@ LIBS += -l:/opt/ros/indigo/lib/libroslib.so -l:/opt/ros/indigo/lib/libroscpp.so
 LIBS += -L/usr/local/lib/ -lopencv_highgui -lopencv_core -lopencv_imgproc -lopencv_imgcodecs 
 LIBS += -l:/usr/local/lib/libopencv_core.so.3.3 -l:/usr/local/lib/libopencv_highgui.so.3.3 -l:/usr/local/lib/libopencv_imgcodecs.so.3.3
 LIBS += -l:/usr/local/lib/libopencv_core.so
+LIBS += -L/opt/ros/indigo/lib/ -lcamera_info_manager
+LIBS += -L/usr/lib/x86_64-linux-gnu -lboost_system
 
-INCLUDEPATH += /opt/ros/indigo/include  /usr/local/include /usr/local/include/opencv2
+#LIBS += -L/usr/local/lib -lyaml-cpp
+
+INCLUDEPATH += /opt/ros/indigo/include   /opt/ros/indigo/lib /usr/local/include /usr/local/include/opencv2 
 DEPENDPATH +=   /opt/ros/indogo/include
 
 
@@ -32,8 +36,7 @@ DEPENDPATH +=   /opt/ros/indogo/include
 LIBS += -L \
     ../../yusb_linux_1.0.4/lib \
     -lcyusb \
-    -lusb-1.0 \
-    -L/opt/ros/indigo/lib -lroscpp
+    -lusb-1.0
 SOURCES += main.cpp \
     mainwindow.cpp \
     cdatacapture.cpp \
