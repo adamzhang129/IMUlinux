@@ -55,6 +55,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this_displaythx, SIGNAL(processedImageLeft(QImage)), this, SLOT(updatePlayerUI(QImage)));
     connect(this_displaythx, SIGNAL(processedImageRight(QImage)), this, SLOT(updateRightImage(QImage)));
     connect(this_displaythx,SIGNAL(sig_t1s(IMUDataStruct*,uint)), this,SLOT(upadateIMUText(IMUDataStruct*,uint)));
+    
+    f_capture = true;    
 }
 
 void MainWindow::upadateIMUText(IMUDataStruct*is,uint et)

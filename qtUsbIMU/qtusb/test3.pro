@@ -27,7 +27,7 @@ LIBS += -L/usr/lib/x86_64-linux-gnu -lboost_system
 
 #LIBS += -L/usr/local/lib -lyaml-cpp
 
-INCLUDEPATH += /opt/ros/indigo/include   /opt/ros/indigo/lib /usr/local/include /usr/local/include/opencv2 
+INCLUDEPATH += /opt/ros/indigo/include   /opt/ros/indigo/lib /usr/local/include /usr/local/include/opencv2  /usr/include/
 DEPENDPATH +=   /opt/ros/indogo/include
 
 

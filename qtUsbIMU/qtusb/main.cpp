@@ -18,7 +18,7 @@
 #include <QImage>
 
 #include <sensor_msgs/Imu.h>
-// #include <c/thread/mutex.hpp>
+#include <boost/thread/mutex.hpp>
 #include <camera_info_manager/camera_info_manager.h>
 
 sensor_msgs::CameraInfo cam_info_left;
@@ -27,8 +27,8 @@ sensor_msgs::CameraInfo cam_info_right;
 typedef camera_info_manager::CameraInfoManager CameraInfoManager;
 
 //Instantiate publishers
-image_transport::Publisher pubImgLeft;
-image_transport::Publisher pubImgRight;
+image_transport::CameraPublisher pubImgLeft;
+image_transport::CameraPublisher pubImgRight;
 ros::Publisher pubImu;
 
 
@@ -45,14 +45,17 @@ int main(int argc, char *argv[])
 
     image_transport::ImageTransport it(nh);
 
-    pubImgLeft = it.advertise("/stereo/right/image_raw", 1);
-    pubImgRight = it.advertise("/stereo/left/image_raw", 1);
+    pubImgLeft = it.advertiseCamera("/stereo/right/image_raw", 1);
+    pubImgRight = it.advertiseCamera("/stereo/left/image_raw", 1);
     pubImu = nh.advertise<sensor_msgs::Imu>("/stereo/Imu", 1); 
 
     
 
     sensor_msgs::ImagePtr imgMsgLeft;
     sensor_msgs::ImagePtr imgMsgRight;
+
+    // cv_bridge::CvImage imgMsgLeft;
+    // cv_bridge::CvImage imgMsgRight;
     sensor_msgs::Imu msgImu;
   
     // QImage img;
@@ -84,16 +87,19 @@ int main(int argc, char *argv[])
       cam_info_manager_right.loadCameraInfo(camera_info_url_right);
     }
   
-    sensor_msgs::CameraInfo camera_info_left;
-    sensor_msgs::CameraInfo camera_info_right;
+    sensor_msgs::CameraInfoPtr camera_info_left;
+    sensor_msgs::CameraInfoPtr camera_info_right;
+    camera_info_left = boost::make_shared<sensor_msgs::CameraInfo>();
+    camera_info_right = boost::make_shared<sensor_msgs::CameraInfo>();
+
+
+    *camera_info_left = cam_info_manager_left.getCameraInfo();
+    *camera_info_right = cam_info_manager_right.getCameraInfo();
   
-    camera_info_left = cam_info_manager_left.getCameraInfo();
-    camera_info_right = cam_info_manager_right.getCameraInfo();
-  
-    ros::Publisher pubCamInfoLeft =
-        nh_left.advertise<sensor_msgs::CameraInfo>("/stereo/left/camera_info", 1);
-    ros::Publisher pubCamInfoRight = 
-        nh_right.advertise<sensor_msgs::CameraInfo>("/stereo/right/camera_info", 1);
+    // ros::Publisher pubCamInfoLeft =
+    //     nh_left.advertise<sensor_msgs::CameraInfo>("/stereo/left/camera_info", 1);
+    // ros::Publisher pubCamInfoRight = 
+    //     nh_right.advertise<sensor_msgs::CameraInfo>("/stereo/right/camera_info", 1);
 
     cout<< "left-----" <<  nh_left.getNamespace() <<endl;
     cout<<"right-----" << nh_right.getNamespace()   <<endl;
@@ -103,58 +109,64 @@ int main(int argc, char *argv[])
     w.show();
 
 
-    ros::Rate loop_rate(10);
-    // while (nh.ok()) {
-    //     ros::Time time_in_this_loop = ros::Time::now();
-    //     //processing left and right images===========
-    //     imgLeft = w.img2ROSLeft;
-    //     imgRight = w.img2ROSRight;
+    ros::Rate loop_rate(15);
+    while (nh.ok()) {
+        ros::Time time_in_this_loop = ros::Time::now();
+        //processing left and right images===========
+        imgLeft = w.img2ROSLeft;
+        imgRight = w.img2ROSRight;
 
-    //     cv::Mat  matLeft( imgLeft.height(), imgLeft.width(),
-    //                 CV_8UC1,
-    //                 const_cast<uchar*>(imgLeft.bits()),
-    //                 static_cast<size_t>(imgLeft.bytesPerLine())
-    //                 );
-    //     cv::Mat  matRight( imgRight.height(), imgRight.width(),
-    //                 CV_8UC1,
-    //                 const_cast<uchar*>(imgRight.bits()),
-    //                 static_cast<size_t>(imgRight.bytesPerLine())
-    //                 );
-    //     imgMsgLeft = cv_bridge::CvImage(std_msgs::Header(), "mono8", matLeft).toImageMsg();
-    //     imgMsgLeft->header.frame_id = "stereo";
-    //     imgMsgLeft->header.stamp = time_in_this_loop;
+        cv::Mat  matLeft( imgLeft.height(), imgLeft.width(),
+                    CV_8UC1,
+                    const_cast<uchar*>(imgLeft.bits()),
+                    static_cast<size_t>(imgLeft.bytesPerLine())
+                    );
+        cv::Mat  matRight( imgRight.height(), imgRight.width(),
+                    CV_8UC1,
+                    const_cast<uchar*>(imgRight.bits()),
+                    static_cast<size_t>(imgRight.bytesPerLine())
+                    );
+        imgMsgLeft = cv_bridge::CvImage(std_msgs::Header(), "mono8", matLeft).toImageMsg();
+        imgMsgLeft->header.frame_id = "stereo";
+        imgMsgLeft->header.stamp = time_in_this_loop;
 
-    //     imgMsgRight = cv_bridge::CvImage(std_msgs::Header(), "mono8", matRight).toImageMsg();
-    //     imgMsgRight->header.frame_id = "stereo";
-    //     imgMsgRight->header.stamp = time_in_this_loop;
-    //     // imgMsgLeft.header.frame_id
+        imgMsgRight = cv_bridge::CvImage(std_msgs::Header(), "mono8", matRight).toImageMsg();
+        imgMsgRight->header.frame_id = "stereo";
+        imgMsgRight->header.stamp = time_in_this_loop;
+        // imgMsgLeft.header.frame_id
+        camera_info_left->header.frame_id = "stereo";
+        camera_info_left->header.stamp = time_in_this_loop;
+
+        camera_info_right->header.frame_id = "stereo";
+        camera_info_right->header.stamp = time_in_this_loop;
         
-    //     pubImgLeft.publish(imgMsgLeft);
-    //     pubImgRight.publish(imgMsgRight);
+        pubImgLeft.publish(imgMsgLeft, camera_info_right);
+        pubImgRight.publish(imgMsgRight, camera_info_left);
 
         
         
-    //     // processing Imu data=========================
-    //     msgImu.header.frame_id = "stereo";
-    //     msgImu.header.stamp = time_in_this_loop;
 
-    //     msgImu.linear_acceleration.x =  w.m_IMU2ROS->accelData[0];
-    //     msgImu.linear_acceleration.y =  w.m_IMU2ROS->accelData[1];
-    //     msgImu.linear_acceleration.z =  w.m_IMU2ROS->accelData[2];
-    //     msgImu.angular_velocity.x =  w.m_IMU2ROS->gyroData[0];
-    //     msgImu.angular_velocity.y =  w.m_IMU2ROS->gyroData[1];
-    //     msgImu.angular_velocity.z =  w.m_IMU2ROS->gyroData[2]; 
+        // processing Imu data=========================
+        msgImu.header.frame_id = "stereo";
+        msgImu.header.stamp = time_in_this_loop;
 
-    //     pubImu.publish(msgImu);            
+        msgImu.linear_acceleration.x =  w.m_IMU2ROS->accelData[0];
+        msgImu.linear_acceleration.y =  w.m_IMU2ROS->accelData[1];
+        msgImu.linear_acceleration.z =  w.m_IMU2ROS->accelData[2];
+        msgImu.angular_velocity.x =  w.m_IMU2ROS->gyroData[0];
+        msgImu.angular_velocity.y =  w.m_IMU2ROS->gyroData[1];
+        msgImu.angular_velocity.z =  w.m_IMU2ROS->gyroData[2]; 
+
+        pubImu.publish(msgImu);            
         
-    //     pubCamInfoLeft.publish(camera_info_left);
-    //     pubCamInfoRight.publish(camera_info_right);
+        // pubCamInfoLeft.publish(camera_info_left);
+        // pubCamInfoRight.publish(camera_info_right);
 
-    //     ros::spinOnce();
-    //     loop_rate.sleep();
+        ros::spinOnce();
+        loop_rate.sleep();
 
-    //     qApp->processEvents();// force QT to process this loop
-    // }
+        qApp->processEvents();// force QT to process this loop
+    }
     
     
     return a.exec();
