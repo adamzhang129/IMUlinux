@@ -87,7 +87,7 @@ void display_thread::run()
             expotime=dframethis->expotime;
             emit sig_t1s(imudata,expotime);
         }
-        usleep(10);
+        usleep(5);
         //delete this_imageframe;
     }
     t1s->stop();

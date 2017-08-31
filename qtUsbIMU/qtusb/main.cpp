@@ -41,7 +41,6 @@ int main(int argc, char *argv[])
     
     ros::init(argc, argv, "image_publisher");
     ros::NodeHandle nh("~");
-    cout<<"image_tranport----" << nh.getNamespace()<<endl;
 
     image_transport::ImageTransport it(nh);
 
@@ -101,51 +100,56 @@ int main(int argc, char *argv[])
     // ros::Publisher pubCamInfoRight = 
     //     nh_right.advertise<sensor_msgs::CameraInfo>("/stereo/right/camera_info", 1);
 
-    cout<< "left-----" <<  nh_left.getNamespace() <<endl;
-    cout<<"right-----" << nh_right.getNamespace()   <<endl;
+    
 
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
 
+    int loop_counter = 0;
 
-    ros::Rate loop_rate(15);
+    ros::Rate loop_rate(150);
     while (nh.ok()) {
+        loop_counter++;
+
         ros::Time time_in_this_loop = ros::Time::now();
         //processing left and right images===========
-        imgLeft = w.img2ROSLeft;
-        imgRight = w.img2ROSRight;
+        if(loop_counter%10 == 0){
+            if(loop_counter >=20000) loop_counter = 0;
+            imgLeft = w.img2ROSLeft;
+            imgRight = w.img2ROSRight;
 
-        cv::Mat  matLeft( imgLeft.height(), imgLeft.width(),
-                    CV_8UC1,
-                    const_cast<uchar*>(imgLeft.bits()),
-                    static_cast<size_t>(imgLeft.bytesPerLine())
-                    );
-        cv::Mat  matRight( imgRight.height(), imgRight.width(),
-                    CV_8UC1,
-                    const_cast<uchar*>(imgRight.bits()),
-                    static_cast<size_t>(imgRight.bytesPerLine())
-                    );
-        imgMsgLeft = cv_bridge::CvImage(std_msgs::Header(), "mono8", matLeft).toImageMsg();
-        imgMsgLeft->header.frame_id = "stereo";
-        imgMsgLeft->header.stamp = time_in_this_loop;
+            cv::Mat  matLeft( imgLeft.height(), imgLeft.width(),
+                        CV_8UC1,
+                        const_cast<uchar*>(imgLeft.bits()),
+                        static_cast<size_t>(imgLeft.bytesPerLine())
+                        );
+            cv::Mat  matRight( imgRight.height(), imgRight.width(),
+                        CV_8UC1,
+                        const_cast<uchar*>(imgRight.bits()),
+                        static_cast<size_t>(imgRight.bytesPerLine())
+                        );
+            imgMsgLeft = cv_bridge::CvImage(std_msgs::Header(), "mono8", matLeft).toImageMsg();
+            imgMsgLeft->header.frame_id = "stereo";
+            imgMsgLeft->header.stamp = time_in_this_loop;
 
-        imgMsgRight = cv_bridge::CvImage(std_msgs::Header(), "mono8", matRight).toImageMsg();
-        imgMsgRight->header.frame_id = "stereo";
-        imgMsgRight->header.stamp = time_in_this_loop;
-        // imgMsgLeft.header.frame_id
-        camera_info_left->header.frame_id = "stereo";
-        camera_info_left->header.stamp = time_in_this_loop;
+            imgMsgRight = cv_bridge::CvImage(std_msgs::Header(), "mono8", matRight).toImageMsg();
+            imgMsgRight->header.frame_id = "stereo";
+            
+            imgMsgRight->header.stamp = time_in_this_loop;
 
-        camera_info_right->header.frame_id = "stereo";
-        camera_info_right->header.stamp = time_in_this_loop;
-        
-        pubImgLeft.publish(imgMsgLeft, camera_info_right);
-        pubImgRight.publish(imgMsgRight, camera_info_left);
 
-        
-        
+            // imgMsgLeft.header.frame_id
+            camera_info_left->header.frame_id = "stereo";
+            camera_info_left->header.stamp = time_in_this_loop;
 
+            camera_info_right->header.frame_id = "stereo";
+            camera_info_right->header.stamp = time_in_this_loop;
+            
+            pubImgLeft.publish(imgMsgLeft, camera_info_right);
+            pubImgRight.publish(imgMsgRight, camera_info_left);
+
+        }
         // processing Imu data=========================
         msgImu.header.frame_id = "stereo";
         msgImu.header.stamp = time_in_this_loop;

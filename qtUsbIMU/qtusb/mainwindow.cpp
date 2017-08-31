@@ -56,8 +56,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this_displaythx, SIGNAL(processedImageRight(QImage)), this, SLOT(updateRightImage(QImage)));
     connect(this_displaythx,SIGNAL(sig_t1s(IMUDataStruct*,uint)), this,SLOT(upadateIMUText(IMUDataStruct*,uint)));
     
-    f_capture = true;    
+     
 }
+
+
 
 void MainWindow::upadateIMUText(IMUDataStruct*is,uint et)
 {
@@ -99,18 +101,6 @@ void MainWindow::updateRightImage(QImage img){
     }
 }
 
-// void MainWindow::getImage2ROS(QImage img)
-// {
-//     // if(!img.isNull())
-//     // {
-//     //     cv::Mat  mat( img.height(), img.width(),
-//     //                 CV_8UC1,
-//     //                 const_cast<uchar*>(img.bits()),
-//     //                 static_cast<size_t>(img.bytesPerLine())
-//     //                 );
-//     //     cvImage = mat;
-//     // }
-// }
 
 MainWindow::~MainWindow()
 {
