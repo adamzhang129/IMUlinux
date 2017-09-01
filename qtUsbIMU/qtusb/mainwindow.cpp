@@ -201,6 +201,8 @@ void MainWindow::on_cbAutoTrig_currentIndexChanged(int index)
     cyusb_control_write(h1,0x40,0xd0,0,0,data,2,100);
 }
 
+
+
 void MainWindow::on_pushButton_softTrig_clicked()
 {
     int r=-1;
